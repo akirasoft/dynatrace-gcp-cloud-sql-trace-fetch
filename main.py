@@ -49,7 +49,8 @@ def mapSpanKind(kind):
 
 
 def send_trace(JsonSpanList):
-
+    """Accepts a json list of Zipkin spans and sends them to the
+    OTEL collector's zipkin receiver"""
     print("sending Zipkin trace to: ", OPENTEL_COLLECTOR)
 
     x = requests.post(OPENTEL_COLLECTOR, headers={'Content-Type': 'application/json'}, data = JsonSpanList)
@@ -61,6 +62,8 @@ def send_trace(JsonSpanList):
 
 
 def parse_trace(googletrace):
+    """Accepts Google Cloud Trace object, parses the spans into a list
+    and sends the list of spans to the OTEL zipkin receiver"""
     projectId = googletrace.project_id
     traceId = googletrace.trace_id
     # service_name = "CloudTrace." + projectId
@@ -96,12 +99,14 @@ def parse_trace(googletrace):
             FixedKey = key.replace("/", ".")
             FixedValue = Value.replace("/", ".")
             tags[FixedKey] = FixedValue
+        
 
-        # create json object
+        # creating a zipkin span object
         zipkin_span = ZipkinSpan(traceId=traceId, name=Name, id=SpanId, parentId=ParentSpanId, timestamp=StartTimeUnixMicroseconds, duration=Duration, kind=Kind, tags=tags)
-
+        # adding zipkin span to list of spans
         SpanList.append(zipkin_span)
- 
+    
+    # create json object
     JsonSpanList = json.dumps(SpanList, default=lambda o: o.__dict__, indent=4)
     print("Sending Zipkin Trace to OT Collector - Trace Data: ", JsonSpanList)
     send_trace(JsonSpanList)
