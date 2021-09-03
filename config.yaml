@@ -1,0 +1,15 @@
+receivers:
+  zipkin:
+    endpoint: 0.0.0.0:9411
+exporters:
+  logging:
+    loglevel: debug
+  otlphttp:
+    endpoint: "https://sometenanturl/api/v2/otlp"
+    headers: {"Authorization": "Api-Token sometoken"}    
+service:
+  pipelines:
+    traces:
+      receivers: [zipkin]
+      processors: []
+      exporters: [logging,otlphttp]

@@ -1,0 +1,4 @@
+google-cloud-error-reporting
+google-api-python-client
+google-cloud
+google-cloud-trace
