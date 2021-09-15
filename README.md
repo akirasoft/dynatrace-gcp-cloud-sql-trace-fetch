@@ -17,7 +17,7 @@ install python 3.9 and install the python requirements via: `pip install -r requ
 
 then simply run `python3 main.py`, this will fetch all traces and send them to the OTEL collector, the otel collector will then forward them on to Dynatrace. 
 
-To run within Docker:
+## To run within Docker:
 after you have created the environment variables, run the following command:
 
     docker run \
