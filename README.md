@@ -20,7 +20,7 @@ then simply run `python3 main.py`, this will fetch all traces and send them to t
 To run within Docker:
 after you have created the environment variables, run the following command:
 
-    docker run -it \
+    docker run \
     -e OPENTEL_COLLECTOR_HTTP=$OPENTEL_COLLECTOR_HTTP \
     -e GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT \
     -e GOOGLE_APPLICATION_CREDENTIALS=/app/sa.json \
